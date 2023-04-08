@@ -23,3 +23,7 @@
   gzip, bzip2: 压缩解压缩文件, -d为解压缩。-k为保留原文件。<br/> 
   tar: 命令用于备份文件。-c生成文件包 -x解压，-t查看压缩文件，-z用gzip，-j用bzip2，+c是压缩+x是解压缩。例子: 压缩: tar czf test.tar.gz test.cpp；解压缩：tar xzf test.tar.gz test.cpp。 -C 指定目录<br/> 
   ifconfig: 查看网络, 设置IP。-a显示所有网卡接口，up/down 激活/关闭网卡接口，address 设置ip地址<br/> 
+  <img width="600" alt="1680960420044" src="https://user-images.githubusercontent.com/86211987/230723705-0aec325b-ce34-4e5c-8c9e-12366f28ecf1.png"><br/> 
+  vi: 编辑文件。+xx跳到指定行数。shift+G跳到结尾，set number/nonumber 显示/不显示行号，:xx跳到指定行，ctrl+f/b向前向后翻页。<br/> 
+  x删除一个字符，dd删除一行，ndd删除n行，dw删除一个词，D删除这行后面的所有内容, o在当前行下面新增一行，u撤销上一步操作<br/> 
+  yy复制当前行，nyy复制n行，p粘贴。/xx查找xx。:%s/a/b/g(c)用b替换a(替换时确认)<br/> 
