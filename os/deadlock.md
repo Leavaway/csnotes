@@ -19,6 +19,8 @@
     安全序列，不安全状态和死锁: <br/>
     <img width="600" alt="1681017737879" src="https://user-images.githubusercontent.com/86211987/230758214-d9c07b7b-436b-4925-b06d-893a28643e54.png"><br/>
     银行家算法: <br/>
-    <img width="600" alt="1681022744661" src="https://user-images.githubusercontent.com/86211987/230758649-7c7991ff-00b1-4d5c-a350-802771fabf4c.png">
-
+    <img width="600" alt="1681022744661" src="https://user-images.githubusercontent.com/86211987/230758649-7c7991ff-00b1-4d5c-a350-802771fabf4c.png"><br/>
+    银行家算法实现: <br/>
+    https://github.com/Leavaway/csnotes/blob/main/os/Banker's_algorithm.cpp <br/>
+    
 
