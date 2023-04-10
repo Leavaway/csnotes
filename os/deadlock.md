@@ -22,5 +22,10 @@
     <img width="600" alt="1681022744661" src="https://user-images.githubusercontent.com/86211987/230758649-7c7991ff-00b1-4d5c-a350-802771fabf4c.png"><br/>
     银行家算法实现: <br/>
     https://github.com/Leavaway/csnotes/blob/main/os/Banker's_algorithm.cpp <br/>
-    
-
+   死锁的检测和解除:<br/>
+    资源分配图（Resource Allocation Graph，RAG: <br/>
+    <img width="600" alt="1681131018878" src="https://user-images.githubusercontent.com/86211987/230904525-63c3e95b-a639-436e-a719-f81504f27e65.png"><br/>
+   死锁的解除: <br/>
+    1. 资源剥夺法: 挂起某些死锁进程并且抢占它的资源(可能会导致饥饿)<br/>
+    2. 撤销进程法: 强制撤销部分或者全部死锁进程<br/>
+    3. 进程回退法: 让一个或多个进程回退到解除死锁的地步<br/>
