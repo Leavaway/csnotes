@@ -4,7 +4,6 @@
     1. FAT16: 最大支持2GB, 硬盘利用率低<br/>
     2. FAT32: 在不超过8GB的分区中，采用FAT32分区格式的每一个簇容量都固定为4kb，可以减少硬盘空间的浪费，提高利用率，但是由于文件分配表的扩大，速度比16的慢。<br/>
     3. NTFS: 不易产生碎片，且可恢复文件系统。通过标准的事务处理日志和恢复技术，可保证一致性且支持压缩<br/>
-
 ## shell
 打开shell使用键盘在里面输入，由shell接受数据并回显，然后解析输入的字符串，根据输入在中找到程序并运行。linux命令主要由三部分组成: command, [option], [parameter]<br/>
 如何寻找: 如果不是绝对路径和相对路径的话就去env的PATH变量里面找。<br/>
@@ -58,5 +57,9 @@ x: 第十个字符表示其他用户的执行权限。x 代表有执行权限。
     1.$(wildcard PATTERN):匹配符合pattern类型的文件<br/>
     2.$(patsubst <pattern>,<replacement>,<text>):用pattern匹配text并且换成replacement<br/>
   伪目标:.PHONY,用于告诉make哪些目标不是真正的文件,确保指定的目标总是被执行，而不会因为存在一个同名文件而被跳过<br/>
+  
+## 文件
+   硬链接(Hard link):ln a b;unlink a b<br/>
+   软链接(Soft link):ln -s a b <br/>
   
     
