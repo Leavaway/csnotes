@@ -20,6 +20,7 @@
   chmod: 更改权限, chmod ??? 3个?对应文件所有者（Owner）、用户组（Group）、其它用户（Other Users。+x -x可以更改所有用户的x权限<br/>
   chown: 改变文件所有者<br/>
   find: find 目录名 选项 查找文件<br/>
+  locate: 非实时查找，文件系统的信息提前存在一个db里面，locate从这个里面找，可以用sudo updatedb更新后查找实时内容<br/>
   grep: grep 选项 查找模式 文件名。例子: grep "abc" * -nwr: 是在当前目录和当前目录的子目录递归整词查找带有abc的文件并且显示行数<br/> 
   dd: 在 Unix 和类 Unix 系统中用于复制和转换文件。 例子: dd if=/home/ubuntu/linux/demo/a.out of=test bs=1024 count=2。<br/> 
   gzip, bzip2: 压缩解压缩文件, -d为解压缩。-k为保留原文件。<br/> 
