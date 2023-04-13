@@ -33,4 +33,8 @@
   which:显示可执行文件的完整路径。用于找到命令或程序的实际位置<br/>
   whatis:显示简短的命令或程序描述。用于快速获取命令或程序的基本信息。<br/> 
   man:显示命令或程序的详细手册。提供了关于命令或程序的完整信息，包括用法、选项、例子等<br/> 
-
+  crontab:crontab -e 编辑定时任务,比如# m h dom mon dow command<br/> 
+                                      30 1,5 echo "Hello World" > /home/pi/log<br/> 
+                                      指示了每天1:30和5:30执行<br/> 
+          在底部加入@reboot /path/to/your/command实现开机自动<br/>
+  
