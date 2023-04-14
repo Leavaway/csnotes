@@ -1,3 +1,6 @@
+## 基础
+   Linux系统架构: <br/>
+   <img width="600" alt="1681473509464" src="https://user-images.githubusercontent.com/86211987/232037639-6ce4a24a-e13a-4062-964b-f18357995f5d.png"><br/>
 ## 分区
   定义: 分区是对硬盘的一种格式化。通过创建分区可以设置硬盘的各项物理参数。<br/>
   格式:<br/>
