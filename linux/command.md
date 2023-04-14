@@ -16,8 +16,10 @@
   ls: 列出当前路径文件。-a列出全部。 -l列出更详细信息<br/>
   mv: 移动文件和重命名<br/>
   cat: 用于连接文件并打印到标准输出设备上<br/>
+  head:从头开始输出文件 -x,输出前x行<br/>
+  tail:从尾开始输出文件 -x,输出后x行<br/>
   touch: 用于修改文件或者目录的时间属性，包括存取时间和更改时间。若文件不存在，系统会建立一个新的文件<br/>
-  chmod: 更改权限, chmod ??? 3个?对应文件所有者（Owner）、用户组（Group）、其它用户（Other Users。+x -x可以更改所有用户的x权限<br/>
+  chmod: 更改权限, chmod ??? 3个?对应文件所有者（Owner）、用户组（Group）、其它用户（Other Users)。+x -x可以更改所有用户的x权限<br/>
   chown: 改变文件所有者<br/>
   find: find 目录名 选项 查找文件<br/>
   locate: 非实时查找，文件系统的信息提前存在一个db里面，locate从这个里面找，可以用sudo updatedb更新后查找实时内容<br/>
@@ -38,4 +40,5 @@
                                       30 1,5 echo "Hello World" > /home/pi/log<br/> 
                                       指示了每天1:30和5:30执行<br/> 
           在底部加入@reboot /path/to/your/command实现开机自动<br/>
-  
+  > 和 >>:重定向符号, 把一个进程的重定向输出写入文件。例: echo hello > hi.txt。如果之前不存在hi.txt则两个都是新建, 如果存在则>是覆盖, >>是加到原来存在的文件的末尾<br/>
+  |:管道，变更文本流的方向，把一个进程的输出作为另一个进程的输入
