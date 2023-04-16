@@ -15,6 +15,17 @@
 ## GCC
   <img width="600" alt="1681185508474" src="https://user-images.githubusercontent.com/86211987/231052720-77086b3e-3fb5-4c5e-a5cc-21e35342e813.png"><br/>
   -I表示头文件搜索路径; -l表示要加载的库; -L表示要加载的库的路径<br/>
+## GDB
+   生成和运行: 通过gcc -g生成后用gdb运行,输入quit/q退出<br/>
+   参数: set args x y; show args<br/>
+   查看代码: list/l 行号/函数名/文件名:行号/文件名:函数名<br/>
+   更改/查看行显示: set/show list/listsize<br/>
+   设置断点: break/b 行号/函数名/文件名:行号/文件名:函数名<br/>
+   查看断点: info/i break/b<br/>
+   删除断点: d/del/delete 断点编号<br/>
+   无效断点: disable/dis 断点编号<br/>
+   生效断点: enable/ena 断点编号<br/>
+   条件断点: break/b 位置 if <条件><br/>
 ## 权限
 例子: -rwxrwxr-x<br/>
 这个字符串 -rwxrwxr-x 可以分成 10 个字符，其中第一个字符代表文件类型，接下来的九个字符分为三组，每组三个字符，分别表示文件所有者、文件所属组和其他用户的权限。让我们逐个解释这些字符：<br/>
