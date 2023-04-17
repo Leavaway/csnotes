@@ -26,6 +26,9 @@
    无效断点: disable/dis 断点编号<br/>
    生效断点: enable/ena 断点编号<br/>
    条件断点: break/b 位置 if <条件><br/>
+   运行: start 停在第一行; run 停在断点; 继续运行 continue/c; 向下执行一条代码 next/n (不会进入函数体) step/s (会进入函数体) finish (跳出函数体) <br/>
+         自动变量操作: display num / info display / undisplay num; 设置变量: set var (); until(需要在循环内没有断点且在循环的开始使用)<br/>
+        
 ## 权限
 例子: -rwxrwxr-x<br/>
 这个字符串 -rwxrwxr-x 可以分成 10 个字符，其中第一个字符代表文件类型，接下来的九个字符分为三组，每组三个字符，分别表示文件所有者、文件所属组和其他用户的权限。让我们逐个解释这些字符：<br/>
@@ -72,8 +75,6 @@ x: 第十个字符表示其他用户的执行权限。x 代表有执行权限。
     2.$(patsubst <pattern>,<replacement>,<text>):用pattern匹配text并且换成replacement<br/>
   伪目标:.PHONY,用于告诉make哪些目标不是真正的文件,确保指定的目标总是被执行，而不会因为存在一个同名文件而被跳过<br/>
   
-## 文件
-   硬链接(Hard link):ln a b;unlink a b<br/>
-   软链接(Soft link):ln -s a b <br/>
+
   
     
