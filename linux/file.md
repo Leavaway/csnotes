@@ -6,3 +6,5 @@
 ## 文件链接
    硬链接(Hard link):ln a b;unlink a b<br/>
    软链接(Soft link):ln -s a b <br/>
+## IO函数
+   
