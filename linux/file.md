@@ -7,4 +7,14 @@
    硬链接(Hard link):ln a b;unlink a b<br/>
    软链接(Soft link):ln -s a b <br/>
 ## IO函数
+    int open(const char *pathname, int flags);
+    int open(const char *pathname, int flags, mode_t mode);
+   pathname为文件路径, flags为用于指定文件打开的方式和行为的标志, <mode> 当使用 O_CREAT 标志创建文件时，此参数用于设置新文件的权限, flags和mode都是位掩码。返回file descriptor<br/>
+    ```ssize_t read(int fd, void *buf, size_t count);```<br/>
+   ```ssize_t write(int fd, const void *buf, size_t count);``` <br/>
+   fd为file descriptor, buf为一个指向缓冲区的指针, count为表示要从文件中读取或写入的字节数 <br/>
+    `off_t lseek(int fd, off_t offset, int whence);`<br/>
+   fd为file descriptor, offset为偏移量，表示要更改的文件偏移量的数值, whence指示如何解释偏移量的标志<br/>
+   whence: SEEK_SET 将文件偏移量设置为 offset 字节, SEEK_CUR 将文件偏移量增加 offset 字节, SEEK_END 将文件偏移量设置为文件大小加上 offset 字节<br/>
    
+    
