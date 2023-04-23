@@ -16,5 +16,9 @@
     `off_t lseek(int fd, off_t offset, int whence);`<br/>
    fd为file descriptor, offset为偏移量，表示要更改的文件偏移量的数值, whence指示如何解释偏移量的标志<br/>
    whence: SEEK_SET 将文件偏移量设置为 offset 字节, SEEK_CUR 将文件偏移量增加 offset 字节, SEEK_END 将文件偏移量设置为文件大小加上 offset 字节<br/>
+   stat
+   int stat(const char *pathname, struct stat *statbuf);
+       int fstat(int fd, struct stat *statbuf);
+       int lstat(const char *pathname, struct stat *statbuf);
    
     
