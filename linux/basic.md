@@ -26,6 +26,7 @@
    无效断点: disable/dis 断点编号<br/>
    生效断点: enable/ena 断点编号<br/>
    条件断点: break/b 位置 if <条件><br/>
+   查看变量: print/p <br/>
    运行: start 停在第一行; run 停在断点; 继续运行 continue/c; 向下执行一条代码 next/n (不会进入函数体) step/s (会进入函数体) finish (跳出函数体) <br/>
          自动变量操作: display num / info display / undisplay num; 设置变量: set var (); until(需要在循环内没有断点且在循环的开始使用)<br/>
         
