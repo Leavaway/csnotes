@@ -29,8 +29,13 @@
    `int truncate(const char *path, off_t length);`<br/>
     truncate用于更改文件的大小<br/>
 ## 目录操作
-   
-<br/>
+   `int mkdir(const char *pathname, mode_t mode);`<br/>
+   `int rename(const char *oldpath, const char *newpath);`<br/>
+   `char *getcwd(char *buf, size_t size);`<br/>
+   `int chdir(const char *path);`改变进程的工作目录<br/>
+   `DIR *opendir(const char *name);`<br/>
+   `struct dirent *readdir(DIR *dirp);`<br/>
+   `int closedir(DIR *dirp);`<br/>
 
    
     
