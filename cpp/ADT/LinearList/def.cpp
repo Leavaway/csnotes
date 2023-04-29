@@ -1,5 +1,8 @@
 /*
-    The data object collection of a linear list is {a1, a2, ... an}, where the type of each element is DataType. Except for the first element a1, each element has exactly one immediate predecessor. Similarly, except for the last element an, each element has exactly one immediate successor. The relationship between data elements is one-to-one.
+    The data object collection of a linear list is {a1, a2, ... an}, where the type of each element is DataType. 
+    Except for the first element a1, each element has exactly one immediate predecessor. 
+    Similarly, except for the last element an, each element has exactly one immediate successor. 
+    The relationship between data elements is one-to-one.
 */
 template<typename T>
 class LinearList {
