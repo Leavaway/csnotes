@@ -40,7 +40,7 @@
    <img width="600" alt="1682408129123" src="https://user-images.githubusercontent.com/86211987/234206847-fb76cca8-13d9-40c5-bf97-b263749254ec.png"><br/>
    `int dup(int oldfd);`使用最小未分配file desciptor来复制oldfd<br/>
    `int dup2(int oldfd, int newfd);`把oldfd的fd复制给newfd<br/>
-   `int fcntl(int fd, int cmd, ... /* arg */ );`<br/>
+   `int fcntl(int fd, int cmd, ... /* arg */ );`可以用于获取或设置文件描述符的属性、更改文件状态标志等<br/>
 
    
     
