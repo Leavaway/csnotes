@@ -44,5 +44,16 @@
    execl的pathname为路径, arg为可变参数, 一般以可执行文件名字为开头, 以NULL(哨兵)结尾<br/> 
    execlp的file为文件名, 会到环境变量中进行查找<br/> 
    l: list  p: path  v: vector  e:env<br/>  
+ ## 进程退出
+   `void exit(int status);`<br/>
+   `void _exit(int status);`<br/>
+   exit相比于_exit会多调用退出处理函数和刷新I/O缓存区, 关闭文件描述符<br/>
+ ## 孤儿进程
+   def: 孤儿进程（Orphan Process）是在其父进程终止后仍然继续运行的进程<br/>
+   处理: 操作系统会将其所有孤儿进程的父进程更改为 init 进程。init 进程会周期性地等待其子进程结束, 以回收它们占用的资源并避免僵尸进程的产生<br/>
+ ## 僵尸进程
+   def: 僵尸进程（Zombie Process）是指已经完成执行并终止, 但尚未被其父进程回收资源的进程<br/>
+   处理: 僵尸进程无法使用kill -9杀死, 为了避免僵尸进程, 父进程应该在子进程终止后尽快调用 wait() 或 waitpid() 系统调用来回收其资源。如果父进程在子进程终止前就已经结束，子进程会被 init 进程（进程 ID 为 1）接管<br/>
+   
   
             
