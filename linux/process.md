@@ -40,6 +40,9 @@
        int execvp(const char *file, char *const argv[]);
        int execvpe(const char *file, char *const argv[],
                        char *const envp[]);
-   execve是Linux底层系统调用, 其他的都是C库的封装函数<br/>
+   execve是Linux底层系统调用, 其他的都是C库的封装函数<br/> 
+   execl的pathname为路径, arg为可变参数, 一般以可执行文件名字为开头, 以NULL(哨兵)结尾<br/> 
+   execlp的file为文件名, 会到环境变量中进行查找<br/> 
+   l: list  p: path  v: vector  e:env<br/>  
   
             
