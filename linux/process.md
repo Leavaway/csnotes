@@ -29,6 +29,17 @@
    子进程从 fork() 处开始执行，从父进程继承其内存映像、文件描述符、栈等<br/>
    fork()使用了写时复制(Copy-On-Write): <br/>
    当fork一个子进程时，内核会为子进程创建一个新的页表，但不会立即复制父进程的整个内存地址空间。相反，内核会使子进程的页表条目指向父进程相应的物理内存页，并将这些页标记为只读(写保护)。这样，父子进程实际上共享相同的物理内存页，但各自有自己的页表。当父进程或子进程试图修改这些只读页时，COW机制/缺页异常会触发。此时，内核会为修改的进程创建一个新的物理内存页，并更新相应进程的页表条目。这样，父子进程在修改内存时才会分别拥有各自的物理内存页，实现内存隔离。<br/>
-
+  ## exec函数族
+       int execl(const char *pathname, const char *arg, ...
+                       /* (char  *) NULL */);
+       int execlp(const char *file, const char *arg, ...
+                       /* (char  *) NULL */);
+       int execle(const char *pathname, const char *arg, ...
+                       /*, (char *) NULL, char *const envp[] */);
+       int execv(const char *pathname, char *const argv[]);
+       int execvp(const char *file, char *const argv[]);
+       int execvpe(const char *file, char *const argv[],
+                       char *const envp[]);
+   execve是Linux底层系统调用, 其他的都是C库的封装函数<br/>
   
             
