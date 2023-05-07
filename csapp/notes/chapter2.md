@@ -29,6 +29,7 @@
   ### 无符号数的编码
   <img width="600" alt="1683442470865" src="https://user-images.githubusercontent.com/86211987/236662590-de67257d-04e5-4a31-bdad-a003ad086e9b.png"><br/>
   ### 补码编码
+  <img width="600" alt="1683442918821" src="https://user-images.githubusercontent.com/86211987/236662909-0bebab89-11cd-4512-b177-c43a92c01975.png"><br/>
   概念: 反码 原码的符号位不变, 其余位取反   补码: 用于有符号整数的表示。对于正数，补码与原码相同；对于负数，补码为反码+1  变形补码: 正数00 负数11 如果两数相加 变形补码为01或者10则发生溢出<br/>
   <br/>
 
