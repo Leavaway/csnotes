@@ -24,8 +24,6 @@ int main(){
                 exit(-1);
             }
         }
-
-
         close(fdw);
     }else if (i==0)
     {
@@ -45,11 +43,7 @@ int main(){
             }
             printf("Receive message: %s\n", buffer);
         }
- 
         close(fdr);
-
     }
-    
-
     return 0;
 }
