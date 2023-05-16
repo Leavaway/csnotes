@@ -20,3 +20,19 @@
  ## 信号的状态
     信号有三种状态: 产生, 未决, 递达
     SIGKILL 和 SIGSTOP 信号不能被捕捉、阻塞或者忽略，只能执行默认动作。
+ ## 常用函数
+    int kill(pid_t pid, int sig);
+    int raise(int sig);
+    void abort(void);
+    unsigned int alarm(unsigned int seconds);
+    int setitimer(int which, const struct itimerval *new_value,
+                     struct itimerval *old_value);//which参数: ITIMER_REAL(自然时间),ITIMER_VIRTUAL(用户时间),ITIMER_PROF(用户时间+内核时间)
+    new_value参数: 
+    struct itimerval {
+         struct timeval it_interval; /* Interval for periodic timer */
+         struct timeval it_value;    /* Time until next expiration */
+    };
+    struct timeval {
+       time_t      tv_sec;         /* seconds */
+       suseconds_t tv_usec;        /* microseconds */
+    };
