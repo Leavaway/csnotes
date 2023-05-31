@@ -9,6 +9,7 @@
    jmp target 直接跳转 <br/>
   ## 比较指令
    cmpl S1,S2 比较两个操作数，并根据比较的结果设置条件标志寄存器（EFLAGS）<br/>
+   test 执行位测试操作, 接受两个操作数，执行一个按位与（AND）操作，但是不保存结果，只改变标志位寄存器<br/>
   ## 算数和逻辑指令
    add operand1, operand2 将 operand1 和 operand2 进行加法操作，并将结果存储在 operand2 中<br/>
    sal 指令执行算术左移操作，也就是将指定的位数向左移动，并在右边填充 0<br/>
@@ -23,5 +24,8 @@
   ## 目的地址传送指令
    lea src dest 装入有效地址, 将src的地址的值计算出来然后装入到dest, 常常被用作一个快速的算术运算指令, 比如 leaq (%rdi,%rsi), %rax <br/>
   ## 其他
-   LGDT/LIDT 加载全局/中断描述符表寄存器<br/>
-   
+   lgdt/lidt 加载全局/中断描述符表寄存器<br/>
+   cmovcc 条件移动<br/>
+   <br/>
+# 寄存器
+ 
