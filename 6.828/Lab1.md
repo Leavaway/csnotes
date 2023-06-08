@@ -9,3 +9,71 @@
   所以可以得到这个物理地址：f000 * 16 + fff0 = ffff0<br/>
   ljmp $0xf000,$0xe05b -> 长跳转（long jump）指令，这条指令将控制权转移到物理地址 0xfe05b 上<br/>
   elf文件: elf是一种文件格式，主要被用来把程序存放到磁盘上。是在程序被编译和链接后被创建出来的。一个elf文件包括多个段。对于一个可执行程序，通常包含存放代码的文本段(text section)，存放全局变量的data段，存放字符串常量的rodata段。elf文件的头部就是用来描述这个elf文件如何在存储器中存储。<br/>
+  elf不同段:<br/>
+  VMA(链接地址)，LMA(加载地址)。其中加载地址代表的就是这个段被加载到内存中后，它所在的物理地址。链接地址则指的是这个段希望被存放到的逻辑地址<br/>
+   Idx Name          Size      VMA       LMA       File off  Algn<br/>
+  0 .text         0000178e  f0100000  00100000  00001000  2**2<br/>
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE<br/>
+  text段存放程序的可执行指令<br/>
+  1 .rodata       0000072b  f01017a0  001017a0  000027a0  2**5<br/>
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA<br/>
+  rodata段存放只读数据, 比如C编译器产生的ASCII string constants<br/>
+  2 .stab         00004249  f0101ecc  00101ecc  00002ecc  2**2<br/>
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA<br/>
+  3 .stabstr      00008aff  f0106115  00106115  00007115  2**0<br/>
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA<br/>
+  4 .data         0000a300  f010f000  0010f000  00010000  2**12<br/>
+                  CONTENTS, ALLOC, LOAD, DATA<br/>
+  data段存放程序的初始化数据, such as global variables declared with initializers like int x = 5<br/>
+  5 .bss          00000648  f0119300  00119300  0001a300  2**5<br/>
+                  CONTENTS, ALLOC, LOAD, DATA<br/>
+  bss段是链接器给未初始化全局变量比如int x预留的空间<br/>
+  6 .comment      00000011  00000000  00000000  0001a948  2**0<br/>
+                  CONTENTS, READONLY<br/>
+  ### C pointer exercise
+    int a[4];
+    int *b = malloc(16);
+    int *c;
+    int i;
+
+    printf("1: a = %p, b = %p, c = %p\n", a, b, c);
+
+    c = a;
+    for (i = 0; i < 4; i++)
+	a[i] = 100 + i;
+    c[0] = 200;
+    printf("2: a[0] = %d, a[1] = %d, a[2] = %d, a[3] = %d\n",
+	   a[0], a[1], a[2], a[3]);
+
+    c[1] = 300;
+    *(c + 2) = 301;
+    3[c] = 302;
+    printf("3: a[0] = %d, a[1] = %d, a[2] = %d, a[3] = %d\n",
+	   a[0], a[1], a[2], a[3]);
+
+    c = c + 1;
+    *c = 400;
+    printf("4: a[0] = %d, a[1] = %d, a[2] = %d, a[3] = %d\n",
+	   a[0], a[1], a[2], a[3]);
+
+    c = (int *) ((char *) c + 1);
+    *c = 500;
+    printf("5: a[0] = %d, a[1] = %d, a[2] = %d, a[3] = %d\n",
+	   a[0], a[1], a[2], a[3]);
+
+    b = (int *) a + 1;
+    c = (int *) ((char *) a + 1);
+    printf("6: a = %p, b = %p, c = %p\n", a, b, c);
+   结果:<br/>
+   
+    1: a = 0x7ffdffcc1e50, b = 0x559b216ec260, c = 0x1
+    a输出的是数组a的首地址; b输出的是指针b所指向的操作系统分配给它的空间的起始地址; 未初始化的变量c的地址是0x1
+    2: a[0] = 200, a[1] = 101, a[2] = 102, a[3] = 103
+    3: a[0] = 200, a[1] = 300, a[2] = 301, a[3] = 302
+    4: a[0] = 200, a[1] = 400, a[2] = 301, a[3] = 302
+    5: a[0] = 200, a[1] = 128144, a[2] = 256, a[3] = 302
+    c = (int *) ((char *) c + 1);这行代码的目的是先把c转换成一个char类型指针, 一个指针+1 会移动这个指针的size的距离, int类型指针size一般是4
+    所以+1对于int类型指针会移动4个字节的距离, 而char类型指针的size是1, 只会移动一个字节
+    6: a = 0x7ffdffcc1e50, b = 0x7ffdffcc1e54, c = 0x7ffdffcc1e51
+    
+   
