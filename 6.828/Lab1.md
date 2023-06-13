@@ -80,7 +80,7 @@
   ### print 
    print通过kern/printf.c, lib/printfmt.c, and kern/console.c实现, 其中console.c中的cputchar是被console.c提供给给另外2个的调用接口.
    console.c:
-     `High'-level console I/O.  Used by readline and cprintf.
+        `High'-level console I/O.  Used by readline and cprintf.
 	void
 	cputchar(int c)
 	{
@@ -122,7 +122,9 @@
    
    cga_putc 函数，用于在 CGA (Color Graphics Adapter) 显示屏上输出字符。先判断有没有高24位的设置， 如果没有就设置为0x0700。 然后取低8位进入switch判断和处理
    特殊情况。 随后处理当光标位置超出屏幕范围时的情况，最后移动光标
-
+  
+###  stack
+  
    
     
    
