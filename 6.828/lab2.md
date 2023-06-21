@@ -43,6 +43,6 @@
     这是因为 0xffffffff 是 32 位的最大无符号整数，所以 0xffffffff - KERNBASE 实际上是 2^32 - 1 - KERNBASE，少了一页。
 
     kernel panic at kern/pmap.c:722: assertion failed: check_va2pa(pgdir, KERNBASE + i) == i
-    查看代码可推测应该是boot_map_region函数的问题, 其中一开始用va+size as upper bound作为上界可能会导致溢出, 考虑到目前没有64位unsigned int, 改用size/PGSIZE作为上界.
+    查看代码可推测应该是boot_map_region函数的问题, debug得到一个va的值4009754624，已经比较接近32位unsigned int 最大值, 其中一开始用va+size as upper bound作为上界可能会导致溢出, 考虑到目前没有64位unsigned int, 改用size/PGSIZE作为上界.
     
 
