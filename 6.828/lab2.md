@@ -9,7 +9,7 @@ PageInfo 是用于管理物理页面的结构。通常，操作系统会为所�
 初始化流程: i386_detect_memory(): 探测系统的物理内存，并设置npages和npages_basemem变量，这两个变量分别表示总的物理内存页数和基本内存（小于等于1MB）的页数。
 随后通过boot_alloc()完成一些基本的初始化步骤(初始化页目录, 分配PageInfo数组等). 
 随后设置内核的虚拟内存映射：mem_init()函数中的boot_map_region()调用设置了内核的虚拟内存映射。包括以下几部分：pages数组映射到UPAGES，内核栈映射到KSTACKTOP，所有物理内存映射到KERNBASE。
-更多相关宏函数和介绍可以查看mmu.h pmap.h memlayout.h等文件
+更多相关宏定义 函数和介绍可以查看mmu.h pmap.h memlayout.h等文件
 
 ## bugs
  ```pages[0].pp_ref = 1;<br/>
