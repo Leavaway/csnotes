@@ -21,3 +21,21 @@ GPIO位结构
 更改输出寄存器的某一位: 1) 读出更改后写回 2)使用位设置/清楚寄存器 3)位带
 
 ![1687929700741](https://github.com/Leavaway/csnotes/assets/86211987/9d1f828d-0fa1-43e5-afc1-fa16b6bc827a)
+
+
+stm中断
+
+抢占优先级和响应优先级: 抢断优先级高的可以中断嵌套, 响应优先级高的可以优先排队, 这两个值均相同的按照中断号排队
+
+![1688201740440](https://github.com/Leavaway/csnotes/assets/86211987/0d3873ea-7dbd-441e-acfa-027cf415883b)
+EXTI有16个GPIO PIN通道和4个额外的通道, 所以同一个PIN值不能同时中断
+
+STM32微控制器中的GPIO（General Purpose Input/Output）端口有一个很重要的特性，那就是它们可以被重新映射到其他功能，这就是所谓的“Alternate Function”。这些Alternate Function可以是各种外设的接口，如USART、I2C、SPI、TIM等。
+AFIO（Alternate Function I/O）是STM32中用于管理这种功能映射的硬件部件。通过配置AFIO，我们可以选择将GPIO端口的某些引脚用作特定外设的接口，或者恢复它们为普通的GPIO。
+例如，如果我们想使用USART1，但是又不想使用它默认的引脚（PA9和PA10），那么可以通过配置AFIO，将USART1的TX和RX线映射到其他的GPIO引脚上。
+AFIO 引脚复用功能选择和重定义(数据选择器),  引脚复用功能引脚重映射, 中断引脚选择。
+
+![1688202291872](https://github.com/Leavaway/csnotes/assets/86211987/237973da-bdaa-4e35-849d-860fd2e9bd3b)
+
+![1688207164083](https://github.com/Leavaway/csnotes/assets/86211987/2218af2a-bb32-4df1-9e7e-051c40f6c1f4)
+
