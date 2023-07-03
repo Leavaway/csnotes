@@ -31,3 +31,16 @@ Qusetion 1：
 TSS描述符
 每个核的当前执行的任务
 每个核的寄存器
+
+加锁: 
+In i386_init(), acquire the lock before the BSP wakes up the other CPUs.
+In mp_main(), acquire the lock after initializing the AP, and then call sched_yield() to start running environments on this AP.
+In trap(), acquire the lock when trapped from user mode. To determine whether a trap happened in user mode or in kernel mode, check the low bits of the tf_cs.
+In env_run(), release the lock right before switching to user mode. Do not do that too early or too late, otherwise you will experience races or deadlocks.
+
+
+lcr3(PADDR(curenv->env_pgdir));
+unlock_kernel();
+env_pop_tf(&curenv->env_tf);
+lcr3(PADDR(curenv->env_pgdir)); 这一行是切换到新环境的地址空间，这个操作需要在大内核锁保护下进行，因为它涉及到修改处理器的控制寄存器，这是一个关键的系统级操作。
+env_pop_tf(&curenv->env_tf); 这一行是恢复新环境的寄存器状态并将处理器从内核模式切换到用户模式。在这个操作之后，处理器将开始在新环境中运行用户代码，此时应该已经释放大内核锁，否则当其他处理器尝试进入内核模式时，将会被阻塞。
