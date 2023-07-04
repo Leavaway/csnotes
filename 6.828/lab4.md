@@ -44,3 +44,68 @@ unlock_kernel();
 env_pop_tf(&curenv->env_tf);
 lcr3(PADDR(curenv->env_pgdir)); 这一行是切换到新环境的地址空间，这个操作需要在大内核锁保护下进行，因为它涉及到修改处理器的控制寄存器，这是一个关键的系统级操作。
 env_pop_tf(&curenv->env_tf); 这一行是恢复新环境的寄存器状态并将处理器从内核模式切换到用户模式。在这个操作之后，处理器将开始在新环境中运行用户代码，此时应该已经释放大内核锁，否则当其他处理器尝试进入内核模式时，将会被阻塞。
+
+
+
+6828 decimal is 15254 octal!
+Physical memory: 131072K available, base = 640K, extended = 130432K
+check_page_free_list() succeeded!
+check_page_alloc() succeeded!
+check_page() succeeded!
+check_kern_pgdir() succeeded!
+check_page_free_list() succeeded!
+check_page_installed_pgdir() succeeded!
+SMP: CPU 0 found 1 CPU(s)
+EAX=00000010 EBX=00000048 ECX=00000001 EDX=00000000
+ESI=f0104984 EDI=f0105efc EBP=f0104978 ESP=efff8004
+EIP=3a0946d5 EFL=00000046 [---Z-P-] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =0010 00000000 ffffffff 00cf9300 DPL=0 DS   [-WA]
+CS =0008 00000000 ffffffff 00cf9a00 DPL=0 CS32 [-R-]
+SS =0010 00000000 ffffffff 00cf9300 DPL=0 DS   [-WA]
+DS =0010 00000000 ffffffff 00cf9300 DPL=0 DS   [-WA]
+FS =0023 00000000 ffffffff 00cff300 DPL=3 DS   [-WA]
+GS =0023 00000000 ffffffff 00cff300 DPL=3 DS   [-WA]
+LDT=0000 00000000 00000000 00008200 DPL=0 LDT
+TR =0028 f032c02c 00000067 00408900 DPL=0 TSS32-avl
+GDT=     f0128340 00000067
+IDT=     f032b260 000007ff
+CR0=80050033 CR2=efff7ffc CR3=0036e000 CR4=00000000
+DR0=00000000 DR1=00000000 DR2=00000000 DR3=00000000 
+DR6=ffff0ff0 DR7=00000400
+EFER=0000000000000000
+Triple fault.  Halting for inspection via QEMU monitor.
+qemu: terminating on signal 15 from pid 4777
+
+debug发现是启动流程
+cons_init();
+
+cprintf("6828 decimal is %o octal!\n", 6828);
+
+// Lab 2 memory management initialization functions
+mem_init();
+
+// Lab 3 user environment initialization functions
+env_init();
+trap_init();
+
+// Lab 4 multiprocessor initialization functions
+mp_init();
+lapic_init();
+
+// Lab 4 multitasking initialization functions
+pic_init();
+
+// Acquire the big kernel lock before waking up APs
+// Your code here:
+lock_kernel();
+// Starting non-boot CPUs
+boot_aps();
+
+里面的lapic_init();的	lapicw(SVR, ENABLE | (IRQ_OFFSET + IRQ_SPURIOUS));出问题
+debug到这行进入trap 到 page fault 到page fault handler
+![1688481124377](https://github.com/Leavaway/csnotes/assets/86211987/11cb8737-1ebe-4bb4-8715-8509cd19066a)
+在GDB里面运行的最后一行报错前的代码是: 0x3a0946d5: Error while running hook_stop: Cannot access memory at  address 0x3a0946d5
+报错可能是由于尝试访问无效内存地址而引发的页面错误 lapic_init函数中不正确地设置了APIC的内存映射。
+可能是mmio_map_region设置错误, 检查发现是boot_map_region(kern_pgdir, base, size, pa, PTE_P|PTE_PCD|PTE_PWT);应该是boot_map_region(kern_pgdir, base, size, pa, PTE_W|PTE_PCD|PTE_PWT);
+原来的代码权限不足导致了错误。
+
