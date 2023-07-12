@@ -124,7 +124,32 @@ debug到这行进入trap 到 page fault 到page fault handler
 
 在JOS这样的操作系统中，这种设计使得在一个环境中连续发生多个异常时能够正确处理。例如，如果一个页错误处理程序本身也触发了一个页错误，那么操作系统能够在异常栈上为第二个页错误创建另一个UTrapframe，并且能够正确地处理这两个异常。
 
+![1689126247274](https://github.com/Leavaway/csnotes/assets/86211987/9836e25e-6f11-4d8f-9f89-1782c3b880dc)
 
+导致无法通过测试, 一开始以为是调度问题因为应该是0000创建好1000之后yield调度让1000创建后面的env, 但是在init里面ENV_CREATE(user_yield, ENV_TYPE_USER);
+	ENV_CREATE(user_yield, ENV_TYPE_USER);
+	ENV_CREATE(user_yield, ENV_TYPE_USER);多出来三行这个导致了在运行init的时候是bsp，所以这三行是直接以bsp的0000创建了3个env
+ 
 
+内核态处理：
+用户程序执行一个会触发陷阱或中断的操作，例如系统调用、除以零、访问非法内存等。
+
+处理器立即停止当前用户程序的执行，保存当前的程序计数器和处理器状态，然后设置新的程序计数器为内核中定义的中断服务例程（ISR）或陷阱处理程序的地址。
+
+处理器提升特权级别到内核态。
+
+中断服务例程或陷阱处理程序开始执行，此时系统已经处于内核态。
+
+内核完成所需的操作后，会通过执行一个特殊的指令（例如iret在x86架构上）来恢复之前保存的程序计数器和处理器状态，并将特权级别降低回用户态，继续执行用户程序。
+
+[00000000] new env 00001000
+[00001000] new env 00001001
+[00001001] user panic in <unknown> at lib/fork.c:30: pgfault: cant access to cow or write
+遇到了权限问题, 检查fork函数和pgfault函数 应该是没问题的。检查sys_ipc_try_send发现把insert的pgdir填错了。。 应该是des, 不是curenv
+if(des->env_ipc_dstva!=0){
+			if(page_insert(curenv->env_pgdir,pp,des->env_ipc_dstva,perm)<0){
+				return -E_NO_MEM;
+			}
+		}
 
 
