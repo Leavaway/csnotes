@@ -58,3 +58,16 @@ BUG
 
 }使用的*blk = diskaddr(r); 但是r在alloc后传给pno后clear了 所以应该吧pno传给blk。
 
+
+## JOS fs env 
+![image](https://github.com/Leavaway/csnotes/assets/86211987/e130dfc5-adbe-4a9f-9d57-60997a7f01eb)
+
+## child address space
+它遍历了从 UTEXT 开始，到 USTACKTOP 结束的所有页面。PGNUM(UTEXT) 和 PGNUM(USTACKTOP) 是用户地址空间的边界。
+
+UTEXT 和 USTACKTOP 通常定义了用户地址空间中代码和数据的区域：
+
+UTEXT 是用户文本（即代码）段开始的地址。在 JOS 中，这通常是固定的 0x00800000。
+
+USTACKTOP 是用户栈顶部的地址。在 JOS 中，这通常是固定的 0xEEBFE000。
+
