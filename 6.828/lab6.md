@@ -27,7 +27,42 @@ In the general case, packet reception consists of recognizing the presence of a 
 performing address filtering, storing the packet in the receive data FIFO, transferring the data to a
 receive buffer in host memory, and updating the state of a receive descriptor.
 
+## Receive and Transmit Description
+### Packet Address Filtering:
+1. Exact Unicast/Multicast
+2. Promisuous Unicast
+3. Multicast
+4. Promisuous Multicast
+5. VLAN
 
-### Receive Descriptor (RDESC) Layout
+### Receive Descriptor Format
+Receive Descriptor (RDESC) Layout: 
 ![1689412480700](https://github.com/Leavaway/csnotes/assets/86211987/84255d5c-9251-44fa-a357-ed0cfe8d175a)
+Receive Descriptor Status Field: 
+PIF, IPCS, TCPCS, VP, RSV, IXSM, EOP, DD
+Receive Errors (RDESC.ERRORS) Layout:
+RXE, IPE, TCPE, CXE, RSV, SEQ, SE, CE
+Receive Descriptor Special Field:
+VLAN, CFI, PRI
 
+描述接受符缓冲策略: 
+当内部缓冲区为空时，一旦有描述符可用（由软件写入尾指针），就会立即进行获取。
+
+当内部缓冲区接近空时（由RXDCTL.PTHRESH决定），只要在主机内存中有足够的有效描述符（由RXDCTL.HTHRESH决定）并且没有其他更高优先级的PCI活动（如描述符获取和回写或数据包传输），就会进行预取。
+
+当主机内存中的描述符数量大于可用的内部描述符存储时，设备可能会选择执行一个非缓存行大小的获取。如果这样做可以使下一个描述符获取对齐到缓存行边界，硬件就会执行这种非对齐的获取。在获取落后于软件的情况下，这种机制提供了最高的效率。
+
+网络通信流程: 
+当数据包从网络传输到计算机的网络接口卡（NIC）时，NIC的物理层硬件会把电信号转换为二进制数据。
+
+NIC的硬件或固件将这些数据组装成一个网络数据包，并生成一个对应的接收描述符。
+
+NIC通过中断通知CPU有新的数据包到达。
+
+CPU通过DMA（Direct Memory Access）机制将数据包和描述符从NIC的内存移动到主机内存。
+
+网络驱动程序通过读取接收描述符，获取数据包的信息，然后处理数据包，如解析网络协议，将数据传递给上层的网络协议栈。
+
+网络协议栈处理数据包，并最终将数据传递给应用程序。
+
+### 
