@@ -65,4 +65,22 @@ CPU通过DMA（Direct Memory Access）机制将数据包和描述符从NIC的内
 
 网络协议栈处理数据包，并最终将数据传递给应用程序。
 
-### 
+### lab6 notes
+int
+pci_e1000_attach(struct pci_func * pcif) 
+{
+    volatile uint32_t* E1000;
+    pci_func_enable(pcif);
+    e1000 = mmio_map_region(pcif->reg_base[0],pcif->reg_size[0]); 
+    return 0;
+}
+ If you do use a pointer to the device register mapping, be sure to declare it volatile; otherwise, the compiler is allowed to cache values and reorder accesses to this memory.
+
+ 这些指向数组的指针和描述符中packet buffer的地址都必须是物理地址，因为硬件直接和物理RAM发生DMA，并不经过MMU。
+
+ 发送初始化: 
+ 初始化传输控制寄存器:
+ Initialize the Transmit Control Register (TCTL) for desired operation to include the following:
+• Set the Enable (TCTL.EN) bit to 1b for normal operation.
+• Set the Pad Short Packets (TCTL.PSP) bit to 1b
+
