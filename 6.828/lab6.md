@@ -80,7 +80,23 @@ pci_e1000_attach(struct pci_func * pcif)
 
  发送初始化: 
  初始化传输控制寄存器:
+Software should insure this memory is aligned on a paragraph (16-byte) boundary. Program the Transmit Descriptor Base Address
+(TDBAL/TDBAH) register(s) with the address of the region. TDBAL is used for 32-bit addresses
+and both TDBAL and TDBAH are used for 64-bit addresses.
+![1689697444542](https://github.com/Leavaway/csnotes/assets/86211987/c91c793c-74e4-4498-b54a-669b314ed55c)
+
+
  Initialize the Transmit Control Register (TCTL) for desired operation to include the following:
 • Set the Enable (TCTL.EN) bit to 1b for normal operation.
 • Set the Pad Short Packets (TCTL.PSP) bit to 1b
+• Configure the Collision Threshold (TCTL.CT) to the desired value. Ethernet standard is 10h.
+This setting only has meaning in half duplex mode.
+• Configure the Collision Distance (TCTL.COLD) to its expected value. For full duplex
+operation, this value should be set to 40h. For gigabit half duplex, this value should be set to
+200h. For 10/100 half duplex, this value should be set to 40h.
+Program the Transmit IPG (TIPG) register with the following decimal values to get the minimum
+legal Inter Packet Gap
+
+![1689647325854](https://github.com/Leavaway/csnotes/assets/86211987/5c057418-58b1-428f-a7a8-c7e1b300d381)
+
 
