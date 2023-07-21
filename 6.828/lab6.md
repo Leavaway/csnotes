@@ -78,12 +78,58 @@ pci_e1000_attach(struct pci_func * pcif)
 
  这些指向数组的指针和描述符中packet buffer的地址都必须是物理地址，因为硬件直接和物理RAM发生DMA，并不经过MMU。
 
- 发送初始化: 
- 初始化传输控制寄存器:
+发送初始化: 
 Software should insure this memory is aligned on a paragraph (16-byte) boundary. Program the Transmit Descriptor Base Address
 (TDBAL/TDBAH) register(s) with the address of the region. TDBAL is used for 32-bit addresses
 and both TDBAL and TDBAH are used for 64-bit addresses.
-![1689697444542](https://github.com/Leavaway/csnotes/assets/86211987/c91c793c-74e4-4498-b54a-669b314ed55c)
+
+`/* Transmit Descriptor */
+struct e1000_tx_desc {
+    uint64_t buffer_addr;       /* Address of the descriptor's data buffer */
+    union {
+        uint32_t data;
+        struct {
+            uint16_t length;    /* Data buffer length */
+            uint8_t cso;        /* Checksum offset */
+            uint8_t cmd;        /* Descriptor control */
+        } flags;
+    } lower;
+    union {
+        uint32_t data;
+        struct {
+            uint8_t status;     /* Descriptor status */
+            uint8_t css;        /* Checksum start */
+            uint16_t special;
+        } fields;
+    } upper;
+}__attribute__((packed));`
+Buffer Address: </br>
+Address of the transmit descriptor in the host memory. Descriptors with a</br>
+null address transfer no data. If they have the RS bit in the command byte</br>
+set (TDESC.CMD), then the DD field in the status word (TDESC.STATUS) is</br>
+written when the hardware processes them.</br>
+0-63 存放buffer地址, 初始化一块内存地址放入</br>
+查阅 Transmit Command (TDESC.CMD) Layout: </br>
+![1689923679041](https://github.com/Leavaway/csnotes/assets/86211987/701508b7-d53e-46fc-9335-d3fed442cfcf)</br>
+![1689923930385](https://github.com/Leavaway/csnotes/assets/86211987/36ede14b-6c4a-4d77-a219-080ce30e4e45)</br>
+![1689923990423](https://github.com/Leavaway/csnotes/assets/86211987/ef6c29ff-1581-4733-90c2-c91f15fdbd02)
+根据上面描述把CMD设置为RS来让软件获取发送后状态</br>
+
+设置TDBAL
+![1689928909437](https://github.com/Leavaway/csnotes/assets/86211987/40536acc-cea7-4bfd-99a4-2c28bd99990f)
+因为是32位系统 用不到TDLEH 设置为0
+设置TDLEN
+![1689930850091](https://github.com/Leavaway/csnotes/assets/86211987/199661cb-83c5-40b5-bcf1-63e62f93f08c)
+设置TDH
+![1689931365530](https://github.com/Leavaway/csnotes/assets/86211987/16a1f706-0256-4eab-8240-e85f1cb834d4)
+设置TCTL
+![1689932140696](https://github.com/Leavaway/csnotes/assets/86211987/d9237d17-697c-4d6f-9502-e40c2a46bdbf)
+设置EN开启传输并且设置包64字节长
+设置CT决定重传次数(在半双工时候有意义,这个字段设置了碰撞后的最大重试次数。这对于网络数据包冲突的管理非常重要)
+设置COLD指定CSMA/CD操作最小时间数
+
+
+
 
 
  Initialize the Transmit Control Register (TCTL) for desired operation to include the following:
