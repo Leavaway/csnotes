@@ -22,7 +22,7 @@ timer进程定期向核心网络服务器发送NSREQ_TIMER IPC消息，通知它
 ### Ethernet Addressing
 ![1689408096208](https://github.com/Leavaway/csnotes/assets/86211987/326d4b61-3e36-4089-94f5-a4611c2a952e)
 
-### 数据包接受
+# PartA
 In the general case, packet reception consists of recognizing the presence of a packet on the wire,
 performing address filtering, storing the packet in the receive data FIFO, transferring the data to a
 receive buffer in host memory, and updating the state of a receive descriptor.
@@ -109,29 +109,30 @@ null address transfer no data. If they have the RS bit in the command byte</br>
 set (TDESC.CMD), then the DD field in the status word (TDESC.STATUS) is</br>
 written when the hardware processes them.</br>
 0-63 存放buffer地址, 初始化一块内存地址放入</br>
+
+
+
 查阅 Transmit Command (TDESC.CMD) Layout: </br>
 ![1689923679041](https://github.com/Leavaway/csnotes/assets/86211987/701508b7-d53e-46fc-9335-d3fed442cfcf)</br>
 ![1689923930385](https://github.com/Leavaway/csnotes/assets/86211987/36ede14b-6c4a-4d77-a219-080ce30e4e45)</br>
-![1689923990423](https://github.com/Leavaway/csnotes/assets/86211987/ef6c29ff-1581-4733-90c2-c91f15fdbd02)
-根据上面描述把CMD设置为RS来让软件获取发送后状态</br>
-
-设置TDBAL
-![1689928909437](https://github.com/Leavaway/csnotes/assets/86211987/40536acc-cea7-4bfd-99a4-2c28bd99990f)
-因为是32位系统 用不到TDLEH 设置为0
-设置TDLEN
-![1689930850091](https://github.com/Leavaway/csnotes/assets/86211987/199661cb-83c5-40b5-bcf1-63e62f93f08c)
-设置TDH
-![1689931365530](https://github.com/Leavaway/csnotes/assets/86211987/16a1f706-0256-4eab-8240-e85f1cb834d4)
-设置TCTL
-![1689932140696](https://github.com/Leavaway/csnotes/assets/86211987/d9237d17-697c-4d6f-9502-e40c2a46bdbf)
-设置EN开启传输并且设置包64字节长
-设置CT决定重传次数(在半双工时候有意义,这个字段设置了碰撞后的最大重试次数。这对于网络数据包冲突的管理非常重要)
-设置COLD指定CSMA/CD操作最小时间数
+![1689923990423](https://github.com/Leavaway/csnotes/assets/86211987/ef6c29ff-1581-4733-90c2-c91f15fdbd02)</br>
+根据上面描述把CMD设置为RS EOP来让软件获取发送后状态</br>
+设置DD
+Descriptor Done
+Indicates that the descriptor is finished and is written back either after the descriptor
+has been processed (with RS set) or for the 82544GC/EI, after the packet has been
+transmitted on the wire (with RPS set).
+//遇到了大整数隐式截断为无符号整型错误</br>
 
 
-
-
-
+设置TDBAL</br>
+![1689928909437](https://github.com/Leavaway/csnotes/assets/86211987/40536acc-cea7-4bfd-99a4-2c28bd99990f)</br>
+因为是32位系统 用不到TDLEH 设置为0</br>
+设置TDLEN</br>
+![1689930850091](https://github.com/Leavaway/csnotes/assets/86211987/199661cb-83c5-40b5-bcf1-63e62f93f08c)</br>
+设置TDH</br>
+![1689931365530](https://github.com/Leavaway/csnotes/assets/86211987/16a1f706-0256-4eab-8240-e85f1cb834d4)</br>
+设置TCTL</br>
  Initialize the Transmit Control Register (TCTL) for desired operation to include the following:
 • Set the Enable (TCTL.EN) bit to 1b for normal operation.
 • Set the Pad Short Packets (TCTL.PSP) bit to 1b
@@ -143,6 +144,18 @@ operation, this value should be set to 40h. For gigabit half duplex, this value 
 Program the Transmit IPG (TIPG) register with the following decimal values to get the minimum
 legal Inter Packet Gap
 
-![1689647325854](https://github.com/Leavaway/csnotes/assets/86211987/5c057418-58b1-428f-a7a8-c7e1b300d381)
+![1689647325854](https://github.com/Leavaway/csnotes/assets/86211987/5c057418-58b1-428f-a7a8-c7e1b300d381)</br>
+![1689932140696](https://github.com/Leavaway/csnotes/assets/86211987/d9237d17-697c-4d6f-9502-e40c2a46bdbf)</br>
+设置EN开启传输并且设置包64字节长</br>
+设置CT决定重传次数(在半双工时候有意义,这个字段设置了碰撞后的最大重试次数。这对于网络数据包冲突的管理非常重要)</br>
+设置COLD指定CSMA/CD操作最小时间数</br>
+设置TIPG指定控制数据包之间的间隔时间</br>
+![1689994821046](https://github.com/Leavaway/csnotes/assets/86211987/6f554f42-7947-429c-82be-c6011cfc5160)</br>
+
+
+# PartB
+接受描述符
+![1690015741814](https://github.com/Leavaway/csnotes/assets/86211987/70c9387b-4d6b-4839-87e0-1c5e7bee10ee)
+
 
 
