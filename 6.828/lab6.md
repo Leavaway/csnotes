@@ -1,4 +1,4 @@
-![image](https://github.com/Leavaway/csnotes/assets/86211987/d9d6599d-995c-447f-a03c-e01d12293448)
+![1690084159094](https://github.com/Leavaway/csnotes/assets/86211987/5157f04b-e5a7-4ecc-8f0f-f817e76b87a8)![image](https://github.com/Leavaway/csnotes/assets/86211987/d9d6599d-995c-447f-a03c-e01d12293448)
 
 
 ## JOS 4个网络进程
@@ -156,6 +156,55 @@ legal Inter Packet Gap
 # PartB
 接受描述符
 ![1690015741814](https://github.com/Leavaway/csnotes/assets/86211987/70c9387b-4d6b-4839-87e0-1c5e7bee10ee)
+设置RAL/RAH为52:54:00:12:34:56
+![1690083457037](https://github.com/Leavaway/csnotes/assets/86211987/14147b32-502f-44d0-80b4-59b2f907b2a8)
+将MTA初始化为0，The Ethernet controller provides a 4096-bit vector multicast table array that is used when all the 16
+perfect filters in the Receive Address Registers (RAR) are used. MTA长512bytes
+![1690083517175](https://github.com/Leavaway/csnotes/assets/86211987/549326b8-ccaa-4b4e-8f32-0d42e2bbf77e)
+分配内存和设置RDBAL/RDBAH
+![1690083797896](https://github.com/Leavaway/csnotes/assets/86211987/c46062b4-8bcc-484b-97a3-ca8e34c20f78)
+设置RDLEN寄存器
+![1690084159094](https://github.com/Leavaway/csnotes/assets/86211987/81d0422b-a50d-41cf-906d-4b429a1d2249)
+初始化RDH RDT
+![1690084109267](https://github.com/Leavaway/csnotes/assets/86211987/70c4c82a-0703-4e8f-8219-64981ca61a31)
+设置RCTL
+![1690085121328](https://github.com/Leavaway/csnotes/assets/86211987/eb40f370-991a-47b6-9915-304fac3049b3)
+
+
+在微内核设计中，确实是尽量把那些不直接涉及硬件操作的功能放到用户态来实现。当需要执行某些硬件操作时，用户态进程通过系统调用来请求内核进行操作。
+
+这样的设计可以有很多好处，包括：
+
+安全性：用户态进程在一个受限的环境下运行，无法直接访问硬件或其他进程的内存，这能防止一个进程意外（或恶意）干扰其他进程或系统的运行。
+
+稳定性：用户态进程可以相互隔离，一个进程的崩溃不会直接导致系统崩溃。
+
+灵活性和可移植性：用户态进程比内核更容易修改和移植到其他操作系统或硬件平台。
+
+但是，这样的设计也有一些缺点，其中最主要的可能是性能开销。因为每次进行系统调用都需要在用户态和内核态之间切换，这是有一定开销的。如果一个操作需要频繁地进行系统调用，那么这种开销可能会变得比较大。因此，在设计操作系统时，需要权衡这些利弊，找到最适合的设计方案。
+
+### BUG
+input bug
+一开始只显示到e1000 unicast match但是没有input, 在input.c文件的receive调用的返回值length中打印验证发现length一直是-1, 说明没有收到packet
+检查e1000_receive_data的实现
+int e1000_receive_data(void* addr){
+	int tail = e1000[E1000_RDT>>2];
+	tail = (tail + 1) % REC_DESC_SIZE;
+	struct e1000_rx_desc *rx_hold = &rec_desc_list[tail];
+	if((rx_hold->status & E1000_TXD_STAT_DD) == E1000_TXD_STAT_DD){
+		int len = rx_hold->length;
+		memcpy(addr, rec_desc_buffer[tail].buffer, len);
+		e1000[E1000_RDT>>2] = tail;
+		return len;
+	}
+	return -1;
+}
+RDT需要在赋值之前后移//存疑
+tail = (tail + 1) % REC_DESC_SIZE;
+
+
+
+
 
 
 
