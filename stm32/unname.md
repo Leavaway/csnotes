@@ -1,4 +1,4 @@
-![1687925036917](https://github.com/Leavaway/csnotes/assets/86211987/617e10e6-6521-49dd-8aa5-8e1070343b19)
+
 GPIO 是 General Purpose Input/Output（通用输入/输出）的缩写，是一种通用的、没有特定功能的数字信号引脚，其功能由软件定义。每个 GPIO 都可以被配置为输入或输出。
 
 在嵌入式系统中，GPIO 是最常见的方式来与其他数字系统或数字器件进行交互。你可以将 GPIO 引脚用于读取数字信号（输入模式）或输出数字信号（输出模式）。
@@ -12,7 +12,7 @@ GPIO 是 General Purpose Input/Output（通用输入/输出）的缩写，是一
 在编程时，通常使用 GPIO 库或直接操作硬件寄存器来控制 GPIO 引脚。例如，你可以设置引脚模式（输入、输出等），设置引脚电平（高或低），以及读取引脚状态。
 
 GPIO位结构
-![1687928950218](https://github.com/Leavaway/csnotes/assets/86211987/a15a631f-1e00-4db6-a3e7-3c1a198b451e)
+
 
 上拉模式和下拉模式: 在引脚没有输入时候可以设置默认的电平
 
@@ -20,22 +20,29 @@ GPIO位结构
 
 更改输出寄存器的某一位: 1) 读出更改后写回 2)使用位设置/清楚寄存器 3)位带
 
-![1687929700741](https://github.com/Leavaway/csnotes/assets/86211987/9d1f828d-0fa1-43e5-afc1-fa16b6bc827a)
 
 
 stm中断
 
-抢占优先级和响应优先级: 抢断优先级高的可以中断嵌套, 响应优先级高的可以优先排队, 这两个值均相同的按照中断号排队
+![1690179692496](https://github.com/Leavaway/csnotes/assets/86211987/bec4e9c2-58be-4131-bdb1-de2cfefdb918)
 
-![1688201740440](https://github.com/Leavaway/csnotes/assets/86211987/0d3873ea-7dbd-441e-acfa-027cf415883b)
+
+软中断和硬中断的区别
+
+软中断和硬中断是两种不同类型的中断。软中断是由程序调用发生的，而硬中断是由外设引发的1。硬中断发生的时间是随机的，而软中断发生的时间是由程序控制的1。硬件中断处理程序要确保它能快速地完成它的任务，这样程序执行时才不会等待较长时间
+
+NVIC统一管理 抢占优先级和响应优先级: 抢断优先级高的可以中断嵌套, 响应优先级高的可以优先排队, 这两个值均相同的按照中断号排队
+
+
+EXTI为extern interrupt 外部中断，监测指定GPIO口的电平信号，监测的GPIO电平变化时向NVIC发出中断信号，排到后中断CPU并且执行相应的中断程序，
+支持上升沿/下降沿/双边沿/软件触发  响应: 中断响应/事件响应
 EXTI有16个GPIO PIN通道和4个额外的通道, 所以同一个PIN值不能同时中断
 
 STM32微控制器中的GPIO（General Purpose Input/Output）端口有一个很重要的特性，那就是它们可以被重新映射到其他功能，这就是所谓的“Alternate Function”。这些Alternate Function可以是各种外设的接口，如USART、I2C、SPI、TIM等。
 AFIO（Alternate Function I/O）是STM32中用于管理这种功能映射的硬件部件。通过配置AFIO，我们可以选择将GPIO端口的某些引脚用作特定外设的接口，或者恢复它们为普通的GPIO。
 例如，如果我们想使用USART1，但是又不想使用它默认的引脚（PA9和PA10），那么可以通过配置AFIO，将USART1的TX和RX线映射到其他的GPIO引脚上。
 AFIO 引脚复用功能选择和重定义(数据选择器),  引脚复用功能引脚重映射, 中断引脚选择。
+EXTI框图: 
+![1690181122540](https://github.com/Leavaway/csnotes/assets/86211987/65a4bdd3-60fe-4a09-903a-c055a427ca36)
 
-![1688202291872](https://github.com/Leavaway/csnotes/assets/86211987/237973da-bdaa-4e35-849d-860fd2e9bd3b)
-
-![1688207164083](https://github.com/Leavaway/csnotes/assets/86211987/2218af2a-bb32-4df1-9e7e-051c40f6c1f4)
 
