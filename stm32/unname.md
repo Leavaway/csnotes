@@ -45,4 +45,9 @@ AFIO 引脚复用功能选择和重定义(数据选择器),  引脚复用功能�
 EXTI框图: 
 ![1690181122540](https://github.com/Leavaway/csnotes/assets/86211987/65a4bdd3-60fe-4a09-903a-c055a427ca36)
 
+配置外部中断步骤: 1.配置GCC, 2. 配置GPIO 3. 配置AFIO 4. 配置EXTI 5. 配置NVIC
+STM32时钟详解: https://zhuanlan.zhihu.com/p/345114910
+为什么需要这么多时钟？
+一是在一个故障的时候, 别的可以应急。而是多个时钟源可以让外设选择相应频率的外设源
+
 
