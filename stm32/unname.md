@@ -80,3 +80,7 @@ PWM基本结构:
 
 ### 定时器的编码器接口
 
+![1690814711117](https://github.com/Leavaway/csnotes/assets/86211987/3e84d8c0-7545-4317-b162-165adce9f635)
+
+![1690815669925](https://github.com/Leavaway/csnotes/assets/86211987/c762d2ae-70d9-44d3-872e-e1797db89b36)
+
