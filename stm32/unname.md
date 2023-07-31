@@ -61,10 +61,22 @@ TIM定时器和时钟比如HSI、HSE等的联系是，TIM定时器需要时钟�
 
 定时频率计算: ![1690454254073](https://github.com/Leavaway/csnotes/assets/86211987/da137406-061d-427c-8e27-4b8fb7224f2d)
 
-### 输出比较
+### TIM输出比较
 
-PWM波形: 
+PWM:脉冲宽度调制
+需要在具有惯性的系统中使用 
+输出比较模式:
+![1690764157680](https://github.com/Leavaway/csnotes/assets/86211987/b442f3b4-2b54-4241-bc5f-519127ed994d)
+PWM基本结构: 
+![1690764678178](https://github.com/Leavaway/csnotes/assets/86211987/2262ed46-5f09-45e5-8ecf-72bb3b150fc7)
 
+### TIM输入捕获
 
+![1690800079983](https://github.com/Leavaway/csnotes/assets/86211987/9db443ee-4430-4d07-8d5b-e35eb8c761ca)
 
+![1690800953070](https://github.com/Leavaway/csnotes/assets/86211987/a5432485-de22-43b4-9249-82feead4af26)
+
+![1690802999500](https://github.com/Leavaway/csnotes/assets/86211987/1e875f7c-dfcd-4f0a-93aa-6f9a6290af59)
+
+### 定时器的编码器接口
 
