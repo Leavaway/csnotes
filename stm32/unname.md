@@ -84,3 +84,9 @@ PWM基本结构:
 
 ![1690815669925](https://github.com/Leavaway/csnotes/assets/86211987/c762d2ae-70d9-44d3-872e-e1797db89b36)
 
+### ADC数模转换器
+![1690866912166](https://github.com/Leavaway/csnotes/assets/86211987/032c0e1c-cb83-406a-a5c0-50f109544962)
+
+![1690868247713](https://github.com/Leavaway/csnotes/assets/86211987/0848659b-fbfb-45bf-8668-912763db99ef)
+
+转换模式: 
