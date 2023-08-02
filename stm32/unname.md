@@ -97,3 +97,10 @@ PWM基本结构:
 AD转化的步骤: 采样 保持 量化 编码
 总转换时间为: 采样时间+12.5ADC周期  如ADCCLK为14MHz, 采样时间为1.5个ADC周期 量化编码需要12.5，则总共为14ADC周期 总时间为1us
 
+### DMA
+
+![1690962500007](https://github.com/Leavaway/csnotes/assets/86211987/a77dc253-2cd2-4ec6-98c0-19ff27bc6bb1)
+通常外设到存储器用硬件触发，存储器到存储器用软件触发
+
+![1690962882441](https://github.com/Leavaway/csnotes/assets/86211987/164647ff-9bd7-4750-b0c2-e15e174592bd)
+
