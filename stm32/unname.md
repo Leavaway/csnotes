@@ -112,3 +112,20 @@ STM32DMA:</br>
 
 ![1690962882441](https://github.com/Leavaway/csnotes/assets/86211987/164647ff-9bd7-4750-b0c2-e15e174592bd)
 
+### USART
+串口：
+
+![1691044243896](https://github.com/Leavaway/csnotes/assets/86211987/b09e6525-076e-491f-8619-0d2a21afef87)
+
+![1691052631558](https://github.com/Leavaway/csnotes/assets/86211987/05254854-e06a-4a3c-9acd-930dd2c790d7)
+
+STM32起始位检测和噪声处理
+
+![1691053732369](https://github.com/Leavaway/csnotes/assets/86211987/30ea7d01-1d9a-4af9-b492-121a5af31a43)
+
+在收到下降沿(起始位)信号后以16倍波特率进行16次采样。如果3个采样点都为’0’(在第3、5、7位的第一次采样，和在第8、9、10的第二次采样都为’0’)，
+则确认收到起始位，这时设置RXNE标志位，如果RXNEIE=1，则产生中断。 确定收到起始位后使用8,9,10进行采样
+
+收到起始位 后的数据采样 (也在8.9.10连续进行3次采样) 也按2:1确实噪声, 如果不是全为1或者0则置噪声标志位NE。
+
+
