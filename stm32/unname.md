@@ -148,4 +148,11 @@ I2C时序: 指定地址写: 对于指定设备的指定地址,写入指定数据
 
 指定地址读:对于指定设备在指定地址 (Reg Address)下(Slave Address)，读取从机数据(Data)
 
+I2C硬件: 
+
+![1691460632663](https://github.com/Leavaway/csnotes/assets/86211987/98891d41-3c0f-40a7-a28c-e80d5fced821)
+
+![1691461847295](https://github.com/Leavaway/csnotes/assets/86211987/47f9056a-a084-4f28-b6d8-3899d8b8db72)
+
+![1691462077726](https://github.com/Leavaway/csnotes/assets/86211987/5112d0f7-0910-4e66-9309-a7b0a63f4637)
 
