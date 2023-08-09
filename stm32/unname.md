@@ -156,3 +156,15 @@ I2C硬件:
 
 ![1691462077726](https://github.com/Leavaway/csnotes/assets/86211987/5112d0f7-0910-4e66-9309-a7b0a63f4637)
 
+### SPI
+移位示意图:
+
+![1691551240537](https://github.com/Leavaway/csnotes/assets/86211987/b8af159c-4da0-4181-8af1-38fceb1922ef)
+
+起始和终止条件: 设置SS高低电平
+
+模式1 : SCK上升沿置电平，下降沿读取电平
+
+Flash操作注意事项: 
+
+![1691564076403](https://github.com/Leavaway/csnotes/assets/86211987/e9378c8b-2d22-4c18-9283-c83023f70dfe)
