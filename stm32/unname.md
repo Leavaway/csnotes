@@ -180,3 +180,6 @@ SPI硬件框图:
 
 
 ![1691674930262](https://github.com/Leavaway/csnotes/assets/86211987/2f35db21-c8e6-48ce-aa68-13f30edbac25)
+
+![1691689190160](https://github.com/Leavaway/csnotes/assets/86211987/d74b3d4f-5598-42ac-ad18-a2cf619276d4)
+
