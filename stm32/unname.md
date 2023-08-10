@@ -168,3 +168,15 @@ I2C硬件:
 Flash操作注意事项: 
 
 ![1691564076403](https://github.com/Leavaway/csnotes/assets/86211987/e9378c8b-2d22-4c18-9283-c83023f70dfe)
+
+![1691650699892](https://github.com/Leavaway/csnotes/assets/86211987/2085f317-bd1b-4414-9c5e-a824f25282a3)
+
+SPI硬件框图: 
+
+![1691655635189](https://github.com/Leavaway/csnotes/assets/86211987/83cf8c04-184a-47c5-8754-93cfc0736628)
+
+![1691656994913](https://github.com/Leavaway/csnotes/assets/86211987/c29441e1-ef0d-40ec-8ded-8df1f6a49b39)
+
+
+
+![1691674930262](https://github.com/Leavaway/csnotes/assets/86211987/2f35db21-c8e6-48ce-aa68-13f30edbac25)
