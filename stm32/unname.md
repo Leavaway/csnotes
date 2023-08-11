@@ -183,3 +183,18 @@ SPI硬件框图:
 
 ![1691689190160](https://github.com/Leavaway/csnotes/assets/86211987/d74b3d4f-5598-42ac-ad18-a2cf619276d4)
 
+### Unix, BKP, RTC
+
+![1691723754584](https://github.com/Leavaway/csnotes/assets/86211987/8404fed6-6ef0-485d-92df-dac3da837fe6)
+
+BKP简介: 
+
+![1691739138121](https://github.com/Leavaway/csnotes/assets/86211987/c542db67-ed89-4b84-a304-230dfa1e9164)
+
+![1691744267005](https://github.com/Leavaway/csnotes/assets/86211987/98e3d3ff-33d9-4e8f-b840-4a0f63566983)
+
+图中灰色部分为断电或者待机时仍然供电区域
+
+注意事项: 
+
+
