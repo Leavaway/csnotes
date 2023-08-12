@@ -195,6 +195,11 @@ BKP简介:
 
 图中灰色部分为断电或者待机时仍然供电区域
 
-注意事项: 
+### PWR
 
+![1691815854033](https://github.com/Leavaway/csnotes/assets/86211987/0715c567-054a-4d67-802d-daaa4a508054)
+
+![1691816291555](https://github.com/Leavaway/csnotes/assets/86211987/b74afeb7-0342-4f9f-bd20-f9909042f3b7)
+
+![1691821853000](https://github.com/Leavaway/csnotes/assets/86211987/2372a29c-7380-4880-b055-73188ded2bf3)
 
