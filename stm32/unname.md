@@ -204,6 +204,10 @@ BKP简介:
 ![1691821853000](https://github.com/Leavaway/csnotes/assets/86211987/2372a29c-7380-4880-b055-73188ded2bf3)
 
 ### PID
+PID公式: 
 
+![1692459457515](https://github.com/Leavaway/csnotes/assets/86211987/4489bf80-0466-4b99-816e-778c723a6f21)
 
+P 比例: 设置kp I 设置偏差积分ki D: 设置偏差微分kd
+![1692460806320](https://github.com/Leavaway/csnotes/assets/86211987/f9613cfa-d42c-4522-8df1-cea2662ac25e)
 
