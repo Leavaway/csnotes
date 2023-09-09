@@ -6,11 +6,12 @@
 
 FreeRTOS 每个任务都有一个 typedef tskTCB TCB_t;结构体进行管理 
 ![1694187243449](https://github.com/Leavaway/csnotes/assets/86211987/e0a95a6c-79ed-4151-bf71-848de615a11d)
-动态创建任务:     BaseType_t xTaskCreate( TaskFunction_t pxTaskCode,// 任务函数
+
+`动态创建任务:     BaseType_t xTaskCreate( TaskFunction_t pxTaskCode,// 任务函数
                             const char * const pcName, /*lint !e971 Unqualified char types are allowed for strings and single characters only. */
                             const configSTACK_DEPTH_TYPE usStackDepth, // 任务栈大小
                             void * const pvParameters, // 传递给函数的参数
-                            UBaseType_t uxPriority, //优先级
+                            UBaseType_t uxPriority, //优先级，数字越小优先级越小
                             TaskHandle_t * const pxCreatedTask )// 就是上面的TCB_t结构体
             这个函数动态分配TCB和栈
 静态创建任务:     TaskHandle_t xTaskCreateStatic( TaskFunction_t pxTaskCode,
@@ -20,5 +21,17 @@ FreeRTOS 每个任务都有一个 typedef tskTCB TCB_t;结构体进行管理
                                  UBaseType_t uxPriority,
                                  StackType_t * const puxStackBuffer,
                                  StaticTask_t * const pxTaskBuffer );
-
+`
                             
+如果在分配栈空间大小的时候过小而又在Task中使用较多内存空间的话则会导致栈溢出，在栈中内存地址由高到低增长，会影响到这个栈空间前面的部分。
+
+任务的状态: Running/ Ready/ Blocked/ Suspended(主动/被动)
+![1694246221412](https://github.com/Leavaway/csnotes/assets/86211987/398a4fd0-b5fa-454b-b76b-54178f7c44e3)
+任务状态转换: vTaskResume/ vTaskSuspend/ vTaskDelay(如果想要运行+Delay总时间固定可以用vTaskDelayUtil)
+
+任务的内存管理: 如果Task自杀则会由空闲任务(Idle Task, 在开始调度的时候系统创建)管理内存, 如果是别的任务delete则会由别的任务管理内存。
+钩子函数(Idle Task Hook Functions): 空闲任务每执行一次就会执行狗子函数, 钩子函数可以用来 1) 切换系统进入省电模式 2) 测量系统的空闲时间, 计算CPU占用率 3)执行一些低优先级的, 后台的, 需要连续执行的函数
+可以配置yield, 如果配置了yield则会在执行完一次while之后就让出CPU
+
+可以设置为抢占式调度(可以设置同优先级的任务是否交替执行)和非抢占式调度(合作调度模式)
+
