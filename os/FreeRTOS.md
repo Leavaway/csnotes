@@ -22,7 +22,7 @@ FreeRTOS 每个任务都有一个 typedef tskTCB TCB_t;结构体进行管理
                                  StackType_t * const puxStackBuffer,
                                  StaticTask_t * const pxTaskBuffer );
 `
-                            
+在初始化任务的时候会创建pxStack从FreeRTOS一开始划分的大块heap里面分配一块内存并且初始化pxStack里面的内容，存入寄存器，把pc设置为任务函数地址，把r0设置为param的值。这样以后再调用这个任务的时候就可以直接把pc设置为&pxStack, 把param设置为&(pxStack+15)
 如果在分配栈空间大小的时候过小而又在Task中使用较多内存空间的话则会导致栈溢出，在栈中内存地址由高到低增长，会影响到这个栈空间前面的部分。
 
 任务的状态: Running/ Ready/ Blocked/ Suspended(主动/被动)
@@ -33,5 +33,16 @@ FreeRTOS 每个任务都有一个 typedef tskTCB TCB_t;结构体进行管理
 钩子函数(Idle Task Hook Functions): 空闲任务每执行一次就会执行狗子函数, 钩子函数可以用来 1) 切换系统进入省电模式 2) 测量系统的空闲时间, 计算CPU占用率 3)执行一些低优先级的, 后台的, 需要连续执行的函数
 可以配置yield, 如果配置了yield则会在执行完一次while之后就让出CPU
 
-可以设置为抢占式调度(可以设置同优先级的任务是否交替执行)和非抢占式调度(合作调度模式)
+任务调度的策略: 可以设置为抢占式调度(可以设置同优先级的任务是否交替执行)和非抢占式调度(合作调度模式)
+有3种任务状态链表: pxReadyTaskList, pxDelayTaskList 和 xPendingReadyList, 其中pxReadyTaskList根据优先级设置为不同的链表比如pxReadyTaskList[0], pxReadyTaskList[1]
+
+任务调度的时候需要保存现场环境: 执行位置，局部变量的值，即打断当时寄存器的值
+how：压栈保存
+硬件中断: 硬件帮忙在栈中保存一部分，软件保存一些处理中断需要用到的寄存器
+函数调用: 不需要保存传参用的几个寄存器
+任务切换: 全部寄存器都可能用到，都需要保存
+
+栈的深度取决于局部变量和函数调用
+
+
 
