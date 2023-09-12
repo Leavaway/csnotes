@@ -34,7 +34,7 @@ FreeRTOS 每个任务都有一个 typedef tskTCB TCB_t;结构体进行管理
 可以配置yield, 如果配置了yield则会在执行完一次while之后就让出CPU
 
 任务调度的策略: 可以设置为抢占式调度(可以设置同优先级的任务是否交替执行)和非抢占式调度(合作调度模式)
-有3种任务状态链表: pxReadyTaskList, pxDelayTaskList 和 xPendingReadyList, 其中pxReadyTaskList根据优先级设置为不同的链表比如pxReadyTaskList[0], pxReadyTaskList[1]
+有3种任务状态链表: pxReadyTaskList, pxDelayTaskList 和 xPendingReadyList, 其中pxReadyTaskList根据优先级设置为不同的链表比如pxReadyTaskList[0], pxReadyTaskList[1],由Tick中断进行调度
 
 任务调度的时候需要保存现场环境: 执行位置，局部变量的值，即打断当时寄存器的值
 how：压栈保存
