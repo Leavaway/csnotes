@@ -31,8 +31,11 @@
     struct itimerval {
          struct timeval it_interval; /* Interval for periodic timer */
          struct timeval it_value;    /* Time until next expiration */
-    };
+    }
     struct timeval {
        time_t      tv_sec;         /* seconds */
        suseconds_t tv_usec;        /* microseconds */
     };
+    sighandler_t signal(int signum, sighandler_t handler);//信号处理函数
+    sigemptyset(&set); sigaddset(&set,SIGINT);sigdelset(&set,SIGINT); //信号清空添加和删除
+    sigprocmask //改变阻塞信号集
