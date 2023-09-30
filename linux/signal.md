@@ -39,3 +39,7 @@
     sighandler_t signal(int signum, sighandler_t handler);//信号处理函数
     sigemptyset(&set); sigaddset(&set,SIGINT);sigdelset(&set,SIGINT); //信号清空添加和删除
     sigprocmask //改变阻塞信号集
+    int sigaction(int signum, const struct sigaction *act,
+                     struct sigaction *oldact); //signum 需要捕捉的信号编号, sigaction 捕捉到信号之后的处理动作, oldact上一次对捕捉信号的设置, 一般为NULL
+
+    ![1696006367120](https://github.com/Leavaway/csnotes/assets/86211987/b08db452-be90-43f9-9564-f3a9c71395e0)
