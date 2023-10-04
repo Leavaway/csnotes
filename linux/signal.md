@@ -43,3 +43,4 @@
                      struct sigaction *oldact); //signum 需要捕捉的信号编号, sigaction 捕捉到信号之后的处理动作, oldact上一次对捕捉信号的设置, 一般为NULL
 
     ![1696006367120](https://github.com/Leavaway/csnotes/assets/86211987/b08db452-be90-43f9-9564-f3a9c71395e0)
+    sigchld //解决僵尸进程问题，产生条件:子进程结束/子进程暂停/子进程继续  为了解决多个子进程在sigaction初始化之前就发送sigchld而被默认的忽视选项忽视，可以在初始化sigaction之前阻塞sigchld，这样有信号来的时候就不会进入默认处理。
